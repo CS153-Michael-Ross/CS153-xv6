@@ -2,7 +2,7 @@
 #include "stat.h"
 #include "user.h"
 
-#include "globals.h"
+#include <stdlib.h>
 
 char buf[512];
 

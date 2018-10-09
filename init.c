@@ -4,7 +4,8 @@
 #include "stat.h"
 #include "user.h"
 #include "fcntl.h"
-#include "globals.h"
+
+#include <stdlib.h>
 
 char *argv[] = { "sh", 0 };
 
