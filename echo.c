@@ -1,7 +1,8 @@
 #include "types.h"
 #include "stat.h"
 #include "user.h"
-#include "globals.h"
+
+#include <stdlib.h>
 
 int
 main(int argc, char *argv[])

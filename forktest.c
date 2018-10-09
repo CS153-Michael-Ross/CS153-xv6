@@ -4,7 +4,8 @@
 #include "types.h"
 #include "stat.h"
 #include "user.h"
-#include "globals.h"
+
+#include <stdlib.h>
 
 #define N  1000
 

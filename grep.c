@@ -4,7 +4,7 @@
 #include "stat.h"
 #include "user.h"
 
-#include "globals.h"
+#include <stdlib.h>
 
 char buf[1024];
 int match(char*, char*);
