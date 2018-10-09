@@ -5,7 +5,7 @@
 #include "stat.h"
 #include "user.h"
 
-#include <stdlib.h>
+#include "globals.h"
 
 #define N  1000
 

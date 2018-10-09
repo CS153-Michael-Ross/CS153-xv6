@@ -4,7 +4,7 @@
 #include "user.h"
 #include "fcntl.h"
 
-#include <stdlib.h>
+#include "globals.h"
 
 // Parsed command representation
 #define EXEC  1
