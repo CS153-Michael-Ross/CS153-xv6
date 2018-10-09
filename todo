@@ -11,7 +11,7 @@ TODO:
     * init.c (2)
     * kill.c (2)
     * ln.c (2)
-    o ls.c (2)
+    * ls.c (2)
     o mkdir.c (2)
     o rm.c (2) 
     o sh.c (6)
