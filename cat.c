@@ -2,6 +2,8 @@
 #include "stat.h"
 #include "user.h"
 
+#include <stdlib.h>
+
 char buf[512];
 
 void
@@ -12,12 +14,12 @@ cat(int fd)
   while((n = read(fd, buf, sizeof(buf))) > 0) {
     if (write(1, buf, n) != n) {
       printf(1, "cat: write error\n");
-      exit();
+      exit(EXIT_FAILURE);
     }
   }
   if(n < 0){
     printf(1, "cat: read error\n");
-    exit();
+    exit(EXIT_FAILURE);
   }
 }
 
@@ -28,16 +30,17 @@ main(int argc, char *argv[])
 
   if(argc <= 1){
     cat(0);
-    exit();
+    exit(EXIT_SUCCESS); // I'm assuming that a cat call (heh heh) with no
+                        // parameters is fine
   }
 
   for(i = 1; i < argc; i++){
     if((fd = open(argv[i], 0)) < 0){
       printf(1, "cat: cannot open %s\n", argv[i]);
-      exit();
+      exit(EXIT_FAILURE);
     }
     cat(fd);
     close(fd);
   }
-  exit();
+  exit(EXIT_SUCCESS);
 }

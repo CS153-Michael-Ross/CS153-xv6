@@ -5,6 +5,8 @@
 #include "user.h"
 #include "fcntl.h"
 
+#include <stdlib.h>
+
 char *argv[] = { "sh", 0 };
 
 int
@@ -24,12 +26,12 @@ main(void)
     pid = fork();
     if(pid < 0){
       printf(1, "init: fork failed\n");
-      exit();
+      exit(EXIT_FAILURE);
     }
     if(pid == 0){
       exec("sh", argv);
       printf(1, "init: exec sh failed\n");
-      exit();
+      exit(EXIT_FAILURE);
     }
     while((wpid=wait()) >= 0 && wpid != pid)
       printf(1, "zombie!\n");
