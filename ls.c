@@ -3,7 +3,7 @@
 #include "user.h"
 #include "fs.h"
 
-#include <stdlib.h>
+#include "globals.h"
 
 char*
 fmtname(char *path)
