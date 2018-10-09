@@ -14,7 +14,7 @@ TODO:
     * ls.c (2)
     * mkdir.c (2)
     * rm.c (2) 
-    o sh.c (6)
+    * sh.c (6)
     o stressfs.c (1)
     o trap.c (4)
     o usertests.c (185)
