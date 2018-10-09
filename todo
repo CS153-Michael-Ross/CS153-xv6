@@ -16,7 +16,7 @@ TODO:
     * rm.c (2) 
     * sh.c (6)
     * stressfs.c (1)
-    o trap.c (4)
+    * trap.c (4)
     o usertests.c (185)
     o wc.c (4)
     o zombie.c (1)
