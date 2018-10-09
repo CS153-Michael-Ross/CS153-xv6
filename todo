@@ -10,7 +10,7 @@ TODO:
     * grep.c (4)
     * init.c (2)
     * kill.c (2)
-    o ln.c (2)
+    * ln.c (2)
     o ls.c (2)
     o mkdir.c (2)
     o rm.c (2) 
