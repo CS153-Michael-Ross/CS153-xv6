@@ -7,7 +7,7 @@
 #include "syscall.h"
 #include "traps.h"
 #include "memlayout.h"
-#include "stdlib.h"
+#include "globals.h"
 char buf[8192];
 char name[3];
 char *echoargv[] = { "echo", "ALL", "TESTS", "PASSED", 0 };
