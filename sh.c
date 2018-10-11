@@ -4,6 +4,8 @@
 #include "user.h"
 #include "fcntl.h"
 
+#include "globals.h"
+
 // Parsed command representation
 #define EXEC  1
 #define REDIR 2
@@ -65,7 +67,7 @@ runcmd(struct cmd *cmd)
   struct redircmd *rcmd;
 
   if(cmd == 0)
-    exit();
+    exit(EXIT_SUCCESS);
 
   switch(cmd->type){
   default:
@@ -74,7 +76,7 @@ runcmd(struct cmd *cmd)
   case EXEC:
     ecmd = (struct execcmd*)cmd;
     if(ecmd->argv[0] == 0)
-      exit();
+      exit(EXIT_SUCCESS);
     exec(ecmd->argv[0], ecmd->argv);
     printf(2, "exec %s failed\n", ecmd->argv[0]);
     break;
@@ -84,7 +86,7 @@ runcmd(struct cmd *cmd)
     close(rcmd->fd);
     if(open(rcmd->file, rcmd->mode) < 0){
       printf(2, "open %s failed\n", rcmd->file);
-      exit();
+      exit(EXIT_FAILURE);
     }
     runcmd(rcmd->cmd);
     break;
@@ -127,7 +129,7 @@ runcmd(struct cmd *cmd)
       runcmd(bcmd->cmd);
     break;
   }
-  exit();
+  exit(EXIT_SUCCESS);
 }
 
 int
@@ -168,14 +170,14 @@ main(void)
       runcmd(parsecmd(buf));
     wait();
   }
-  exit();
+  exit(EXIT_SUCCESS);
 }
 
 void
 panic(char *s)
 {
   printf(2, "%s\n", s);
-  exit();
+  exit(EXIT_FAILURE);
 }
 
 int

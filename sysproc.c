@@ -13,10 +13,11 @@ sys_fork(void)
   return fork();
 }
 
+//Should this take a parameter?
 int
 sys_exit(void)
 {
-  exit();
+  exit(0);
   return 0;  // not reached
 }
 

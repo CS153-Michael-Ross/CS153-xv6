@@ -2,14 +2,18 @@
 #include "stat.h"
 #include "user.h"
 
+#include "globals.h"
+
 int
 main(int argc, char *argv[])
 {
   if(argc != 3){
     printf(2, "Usage: ln old new\n");
-    exit();
+    exit(EXIT_FAILURE);
   }
-  if(link(argv[1], argv[2]) < 0)
+  if(link(argv[1], argv[2]) < 0) {
     printf(2, "link %s %s: failed\n", argv[1], argv[2]);
-  exit();
+    exit(EXIT_FAILURE);
+  }
+  exit(EXIT_SUCCESS);
 }

@@ -4,6 +4,8 @@
 #include "stat.h"
 #include "user.h"
 
+#include "globals.h"
+
 char buf[1024];
 int match(char*, char*);
 
@@ -43,24 +45,24 @@ main(int argc, char *argv[])
 
   if(argc <= 1){
     printf(2, "usage: grep pattern [file ...]\n");
-    exit();
+    exit(EXIT_FAILURE);
   }
   pattern = argv[1];
 
   if(argc <= 2){
     grep(pattern, 0);
-    exit();
+    exit(EXIT_SUCCESS);
   }
 
   for(i = 2; i < argc; i++){
     if((fd = open(argv[i], 0)) < 0){
       printf(1, "grep: cannot open %s\n", argv[i]);
-      exit();
+      exit(EXIT_FAILURE);
     }
     grep(pattern, fd);
     close(fd);
   }
-  exit();
+  exit(EXIT_SUCCESS);
 }
 
 // Regexp matcher from Kernighan & Pike,
