@@ -1,8 +1,8 @@
 TODO:
   - change all references to
-    o int exit(void) from user.h
-    o void exit(void) from defs.h
-    o int sys_exit(void) from sysproc.h
+    * int exit(void) from user.h
+    * void exit(void) from defs.h
+    * int sys_exit(void) from sysproc.h
   - files to update
     * cat.c (5)
     * echo.c (1)
@@ -17,6 +17,6 @@ TODO:
     * sh.c (6)
     * stressfs.c (1)
     * trap.c (4)
-    o usertests.c (185)
+    * usertests.c (185)
     * wc.c (4)
     * zombie.c (1)
