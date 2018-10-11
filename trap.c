@@ -8,6 +8,8 @@
 #include "traps.h"
 #include "spinlock.h"
 
+//Thi is a test comment to see if I can update the main github ;)
+
 #include "globals.h"
 
 // Interrupt descriptor table (shared by all CPUs).
