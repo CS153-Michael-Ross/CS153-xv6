@@ -18,5 +18,5 @@ TODO:
     * stressfs.c (1)
     o trap.c (4)
     o usertests.c (185)
-    o wc.c (4)
-    o zombie.c (1)
+    * wc.c (4)
+    * zombie.c (1)
