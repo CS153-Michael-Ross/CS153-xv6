@@ -4,7 +4,9 @@
 #include "types.h"
 #include "stat.h"
 #include "user.h"
-#include "stdlib.h"
+
+#include "globals.h"
+
 int
 main(void)
 {
