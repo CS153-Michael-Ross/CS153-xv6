@@ -100,7 +100,7 @@ extern int sys_read(void);
 extern int sys_sbrk(void);
 extern int sys_sleep(void);
 extern int sys_unlink(void);
-extern int sys_wait(void);
+extern int sys_wait(int*);
 extern int sys_write(void);
 extern int sys_uptime(void);
 
@@ -129,7 +129,7 @@ static int (*syscalls[])() = {
 };
 
 void
-syscall(void)
+syscall()
 {
   int num;
   struct proc *curproc = myproc();
