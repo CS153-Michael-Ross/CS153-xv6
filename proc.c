@@ -300,6 +300,7 @@ wait(int *status)
         p->state = UNUSED;
         release(&ptable.lock);
 
+        // Should this be before the release of the lock?
         // Set status to dead child's exit status
         if (status) {
             *status = p->exit;
