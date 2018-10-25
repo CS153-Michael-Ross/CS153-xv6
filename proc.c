@@ -298,13 +298,12 @@ wait(int *status)
         p->name[0] = 0;
         p->killed = 0;
         p->state = UNUSED;
-        release(&ptable.lock);
 
-        // Should this be before the release of the lock?
         // Set status to dead child's exit status
         if (status) {
             *status = p->exit;
         }
+        release(&ptable.lock);
         return pid;
       }
     }
