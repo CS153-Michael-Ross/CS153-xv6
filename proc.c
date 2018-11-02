@@ -433,13 +433,15 @@ struct proc * getHighestProc() {
 
     if (p->priority < high->priority) {
       high = p;
+    } else {
+      p->priority--;
     }
     // To avoid starvation an else could be put here that increases 
     // priority whenever this process is chosen not to run
   }
 
   // We could also decrease priority here, once the process has been chosen.
-
+  high->priority++;
   return high;
 }
 
