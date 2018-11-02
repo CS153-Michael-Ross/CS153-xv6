@@ -7,6 +7,8 @@
 #include "proc.h"
 #include "spinlock.h"
 
+#include "scheduler.h"
+
 struct {
   struct spinlock lock;
   struct proc proc[NPROC];
@@ -377,6 +379,7 @@ void
 scheduler(void)
 {
   struct proc *p;
+  struct proc *high_p;
   struct cpu *c = mycpu();
   c->proc = 0;
   
@@ -384,29 +387,52 @@ scheduler(void)
     // Enable interrupts on this processor.
     sti();
 
-    // Loop over process table looking for process to run.
+    // Loop over process table looking for highest priority process to run.
     acquire(&ptable.lock);
-    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-      if(p->state != RUNNABLE)
-        continue;
+    p = getHighProc();
 
-      // Switch to chosen process.  It is the process's job
-      // to release ptable.lock and then reacquire it
-      // before jumping back to us.
-      c->proc = p;
-      switchuvm(p);
-      p->state = RUNNING;
+    // Switch to chosen process.  It is the process's job
+    // to release ptable.lock and then reacquire it
+    // before jumping back to us.
+    c->proc = p;
+    // Switch to user page table (memory space?).
+    switchuvm(p);
+    p->state = RUNNING;
 
-      swtch(&(c->scheduler), p->context);
-      switchkvm();
+    swtch(&(c->scheduler), p->context);
+    // Switch to kernel page table.
+    switchkvm();
 
-      // Process is done running for now.
-      // It should have changed its p->state before coming back.
-      c->proc = 0;
-    }
+    // Process is done running for now.
+    // It should have changed its p->state before coming back.
+    c->proc = 0;
+
     release(&ptable.lock);
 
   }
+}
+
+// Find the highest priority process in the ptable. Assumes a ptable.lock 
+// has already been acquired.
+// Return:  A  pointer to the highest priority process
+proc * findHighestProc() {
+  proc * high = ptable.proc;
+  proc * p;
+    
+  for (p = ptable.proc + 1; p < &(ptable.proc[NPROC]); p++) {
+    if(p->state != RUNNABLE)
+      continue;
+
+    if (p->priority < high->priority) {
+      high = p;
+    }
+    // To avoid starvation an else could be put here that increases 
+    // priority whenever this process is chosen not to run
+  }
+
+  // We could also decrease priority here, once the process has been chosen.
+
+  return high;
 }
 
 // Enter scheduler.  Must hold only ptable.lock
