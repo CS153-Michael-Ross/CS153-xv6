@@ -411,10 +411,10 @@ scheduler(void)
   }
 }
 
-// Set the priority of the specified process
-void setpriority(struct proc * p, unsigned priority) {
+// Set the priority of the current process
+void setpriority(unsigned priority) {
   acquire(&ptable.lock);
-  p->priority = priority;
+  myproc()->priority = priority;
   release(&ptable.lock);      
 }
 
