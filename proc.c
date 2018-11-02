@@ -8,6 +8,7 @@
 #include "spinlock.h"
 
 #include "scheduler.h"
+#include "globals.h"
 
 struct {
   struct spinlock lock;
@@ -433,15 +434,14 @@ struct proc * getHighestProc() {
 
     if (p->priority < high->priority) {
       high = p;
-    } else {
-      p->priority--;
-    }
-    // To avoid starvation an else could be put here that increases 
-    // priority whenever this process is chosen not to run
+    } else if (p->priority > PRIORITY_HIGH) {   // Lower priority value is
+      p->priority--;                            // equivalent to higher
+    }                                           // priority.
   }
 
-  // We could also decrease priority here, once the process has been chosen.
-  high->priority++;
+  if (high->priority < PRIORITY_LOW) {  // Higher priority value is
+    high->priority++;                   // equivalent to lower priority.
+  }
   return high;
 }
 
