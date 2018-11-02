@@ -102,8 +102,11 @@ sys_uptime(void)
   return xticks;
 }
 
+// set the priority of a specified process. We're assuming
+// this will never fail so always return 0.
 int
 sys_setpriority(struct proc * p, unsigned priority)
 {
   setpriority(p, priority);
+  return 0;
 }
