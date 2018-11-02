@@ -105,7 +105,7 @@ sys_uptime(void)
 // set the priority of the current process. We're assuming
 // this will never fail so always return 0.
 int
-sys_setpriority(unsigned priority)
+sys_setpriority(int priority)
 {
   setpriority(priority);
   return 0;

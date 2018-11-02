@@ -104,7 +104,7 @@ extern int sys_wait(int*);
 extern int sys_waitpid(int, int*, int);
 extern int sys_write(void);
 extern int sys_uptime(void);
-extern int sys_setpriority(unsigned);
+extern int sys_setpriority(int);
 
 static int (*syscalls[])() = {
 [SYS_fork]    sys_fork,
