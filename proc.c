@@ -412,10 +412,12 @@ scheduler(void)
 }
 
 // Set the priority of the current process
-void setpriority(int priority) {
+int setpriority(int priority) {
   acquire(&ptable.lock);
   myproc()->priority = priority;
   release(&ptable.lock);      
+
+  return 0;
 }
 
 // Find the highest priority process in the ptable. Assumes a ptable.lock 
