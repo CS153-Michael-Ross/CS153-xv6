@@ -13,7 +13,6 @@ sys_fork(void)
   return fork();
 }
 
-//Should this take a parameter?
 int
 sys_exit(int status)
 {
@@ -106,5 +105,6 @@ sys_uptime(void)
 int
 sys_setpriority(int priority)
 {
+  argint(0, &priority);
   return setpriority(priority);
 }
