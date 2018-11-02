@@ -101,3 +101,9 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+int
+sys_setpriority(struct proc * p, unsigned priority)
+{
+  setpriority(p, priority);
+}

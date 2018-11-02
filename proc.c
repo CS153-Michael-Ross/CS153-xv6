@@ -412,6 +412,13 @@ scheduler(void)
   }
 }
 
+// Set the priority of the specified process
+void setpriority(proc * p, unsigned priority) {
+  acquire(&ptable.lock);
+  p->priority = priority;
+  release(&ptable.lock);      
+}
+
 // Find the highest priority process in the ptable. Assumes a ptable.lock 
 // has already been acquired.
 // Return:  A  pointer to the highest priority process
