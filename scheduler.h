@@ -1,8 +1,8 @@
 #ifndef XV6_SCHEDULER
 #define XV6_SCHEDULER
 
-#include "proc.h"
+struct proc;
 
-proc * getHighestProc();
+struct proc * getHighestProc();
 
 #endif

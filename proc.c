@@ -379,7 +379,6 @@ void
 scheduler(void)
 {
   struct proc *p;
-  struct proc *high_p;
   struct cpu *c = mycpu();
   c->proc = 0;
   
@@ -389,7 +388,7 @@ scheduler(void)
 
     // Loop over process table looking for highest priority process to run.
     acquire(&ptable.lock);
-    p = getHighProc();
+    p = getHighestProc();
 
     // Switch to chosen process.  It is the process's job
     // to release ptable.lock and then reacquire it
@@ -413,7 +412,7 @@ scheduler(void)
 }
 
 // Set the priority of the specified process
-void setpriority(proc * p, unsigned priority) {
+void setpriority(struct proc * p, unsigned priority) {
   acquire(&ptable.lock);
   p->priority = priority;
   release(&ptable.lock);      
@@ -422,9 +421,9 @@ void setpriority(proc * p, unsigned priority) {
 // Find the highest priority process in the ptable. Assumes a ptable.lock 
 // has already been acquired.
 // Return:  A  pointer to the highest priority process
-proc * findHighestProc() {
-  proc * high = ptable.proc;
-  proc * p;
+struct proc * getHighestProc() {
+  struct proc * high = ptable.proc;
+  struct proc * p;
     
   for (p = ptable.proc + 1; p < &(ptable.proc[NPROC]); p++) {
     if(p->state != RUNNABLE)
