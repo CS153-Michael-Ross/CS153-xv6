@@ -4,5 +4,6 @@
 struct proc;
 
 struct proc * getHighestProc();
+void donate();
 
 #endif

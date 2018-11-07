@@ -391,6 +391,11 @@ scheduler(void)
     acquire(&ptable.lock);
     p = getHighestProc();
 
+    if (p->blocked) {
+      p->blocked = 0;
+      p = p->procBlocked;
+    }
+
     // Switch to chosen process.  It is the process's job
     // to release ptable.lock and then reacquire it
     // before jumping back to us.
