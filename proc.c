@@ -391,9 +391,12 @@ scheduler(void)
     acquire(&ptable.lock);
     p = getHighestProc();
 
+    // priority inheritance
     if (p->blocked) {
-      p->blocked = 0;
+      struct proc * b;
+      b = p;
       p = p->procBlocked;
+      p->procBlocked = b
     }
 
     // Switch to chosen process.  It is the process's job
@@ -436,12 +439,21 @@ int setblocked(int blocked) {
 }
 
 // Set the process that is blocking our current process
-int setprocblocked(struct proc * process) {
+int setprocblocked(int pid) {
+  int notFound = 1;
+  struct proc * process = 0;
+
   acquire(&ptable.lock);
+  for (process = ptable.proc; process < &ptable.proc[NPROC]; process++) {
+    if (process->pid == pid) {
+        notFound = 0;
+        break;
+    }
+  }
   myproc()->procBlocked = process;
   release(&ptable.lock);
 
-  return 0;
+  return notFound;
 }
 
 // Find the highest priority process in the ptable. Assumes a ptable.lock 

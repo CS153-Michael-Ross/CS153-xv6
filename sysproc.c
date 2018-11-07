@@ -117,8 +117,8 @@ sys_setblocked(int blocked)
 }
 
 int
-sys_setprocblocked(struct proc * blocker)
+sys_setprocblocked(int pid)
 {
-  argptr(0, (char**)&blocker, sizeof(struct proc *));
-  return setprocblocked(blocker);
+  argint(0, &pid);
+  return setprocblocked(pid);
 }

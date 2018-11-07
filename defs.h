@@ -123,7 +123,7 @@ void            wakeup(void*);
 void            yield(void);
 int             setpriority(int);
 int             setblocked(int);
-int             setprocblocked(struct proc *);
+int             setprocblocked(int);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

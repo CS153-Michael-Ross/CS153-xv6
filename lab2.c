@@ -1,5 +1,6 @@
 #include "types.h"
 #include "user.h"
+#include "globals.h"
 
 int main(int argc, char *argv[])
 {
@@ -7,6 +8,7 @@ int main(int argc, char *argv[])
 	int exitWait(void);
 	int waitPid(void);
 	int PScheduler(void);
+        int testInheritance(void);
 
   printf(1, "\n This program tests the correctness of your lab#1\n");
   
@@ -16,6 +18,8 @@ int main(int argc, char *argv[])
 	waitPid();
   else if (atoi(argv[1]) == 3)
 	PScheduler();
+  else if (atoi(argv[1]) == 4)
+        testInheritance();
   else 
    printf(1, "\ntype \"lab1 1\" to test exit and wait, \"lab1 2\" to test waitpid and \"lab1 3\" to test the priority scheduler \n");
   
@@ -141,5 +145,53 @@ int waitPid(void){
                      printf(1,"\n if processes with highest priority finished first then its correct \n");
 }
 			
-	return 0;}
+	return 0;
+}
+
+int testInheritance() {
+
+    int pid_block, pid_proc;
+    int j, k;
+
+    printf(1, "Testing priority inheritance\n");
+    printf(1, "We create a process with low priority and a process with high priority.\n");
+    printf(1, "The process with low priority blocks the process with high priority, so\n");
+    printf(1, "low priority process inherits the high one\n\n");
+
+    setpriority(0);
+
+    pid_block = fork();
+    if (pid_block) { 
+        pid_proc = fork();
+    }
+
+    if (pid_block == 0) { //blocking process
+        setpriority(PRIORITY_LOW);
+     
+        printf(1, "The high priority child donated its priority to me\n");
+        unblock();    
+        exit(0);
+    }
+
+    if (pid_proc == 0) { //high priority process
+        setpriority(20);
+        prinf(1, "I am the high priority child about to be proc blocked\n");
+        setblocked(1);
+        setprocblocked(pid_block);
+
+	for (j=0;j<50000;j++) {
+	    for(k=0;k<10000;k++) {
+		asm("nop");
+            }
+        }
+        
+        printf(1, "If we've hit this, then the low priority child should have run already\n\n");
+        exit(0);
+    }
+
+    waitpid(pid_block, 0, 0);
+    waitpid(pid_proc, 0, 0);
+
+    return 0;
+}
 

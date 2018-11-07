@@ -27,7 +27,7 @@ int sleep(int);
 int uptime(void);
 int setpriority(int);
 int setblocked(int);
-int setprocblocked(struct proc *);
+int setprocblocked(int);
 
 // ulib.c
 int stat(const char*, struct stat*);
