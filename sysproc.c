@@ -119,6 +119,6 @@ sys_setblocked(int blocked)
 int
 sys_setprocblocked(struct proc * blocker)
 {
-  argptr(0, (char**)&blocker, sizeof(proc *));
+  argptr(0, (char**)&blocker, sizeof(struct proc *));
   return setprocblocked(blocker);
 }

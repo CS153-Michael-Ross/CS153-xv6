@@ -431,13 +431,17 @@ int setblocked(int blocked) {
   acquire(&ptable.lock);
   myproc()->blocked = blocked;
   release(&ptable.lock);
+
+  return 0;
 }
 
 // Set the process that is blocking our current process
 int setprocblocked(struct proc * process) {
   acquire(&ptable.lock);
-  myproc()->procblocked = process;
+  myproc()->procBlocked = process;
   release(&ptable.lock);
+
+  return 0;
 }
 
 // Find the highest priority process in the ptable. Assumes a ptable.lock 
