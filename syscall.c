@@ -105,6 +105,8 @@ extern int sys_waitpid(int, int*, int);
 extern int sys_write(void);
 extern int sys_uptime(void);
 extern int sys_setpriority(int);
+extern int sys_setblocked(int);
+extern int sys_setprocblocked(int);
 
 static int (*syscalls[])() = {
 [SYS_fork]    sys_fork,
@@ -130,6 +132,8 @@ static int (*syscalls[])() = {
 [SYS_close]   sys_close,
 [SYS_waitpid] sys_waitpid,
 [SYS_setpriority] sys_setpriority,
+[SYS_setblocked] sys_setblocked,
+[SYS_setprocblocked] sys_setprocblocked,
 };
 
 void
