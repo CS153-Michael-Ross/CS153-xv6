@@ -108,3 +108,17 @@ sys_setpriority(int priority)
   argint(0, &priority);
   return setpriority(priority);
 }
+
+int
+sys_setblocked(int blocked)
+{
+  argint(0, &blocked);
+  return setblocked(blocked);
+}
+
+int
+sys_setprocblocked(struct proc * blocker)
+{
+  argptr(0, (char**)&blocker, sizeof(proc *));
+  return setprocblocked(blocker);
+}

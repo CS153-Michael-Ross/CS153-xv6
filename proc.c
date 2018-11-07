@@ -426,6 +426,20 @@ int setpriority(int priority) {
   return 0;
 }
 
+// Set the blocked flag for the current process
+int setblocked(int blocked) {
+  acquire(&ptable.lock);
+  myproc()->blocked = blocked;
+  release(&ptable.lock);
+}
+
+// Set the process that is blocking our current process
+int setprocblocked(struct proc * process) {
+  acquire(&ptable.lock);
+  myproc()->procblocked = process;
+  release(&ptable.lock);
+}
+
 // Find the highest priority process in the ptable. Assumes a ptable.lock 
 // has already been acquired.
 // Return:  A  pointer to the highest priority process
