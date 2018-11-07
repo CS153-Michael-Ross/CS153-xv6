@@ -393,10 +393,16 @@ scheduler(void)
 
     // priority inheritance
     if (p->blocked) {
-      struct proc * b;
-      b = p;
+      // Swap priorities of running and blocking process
+      int temp = p->procBlocked->priority;
+      p->procBlocked->priority = p->priority;
+      p->priority = temp;
+
+      // Set running process to not blocked
+      p->blocked = 0;
+
+      // Switch running process to blocked process
       p = p->procBlocked;
-      p->procBlocked = b
     }
 
     // Switch to chosen process.  It is the process's job

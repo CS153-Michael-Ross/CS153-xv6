@@ -160,22 +160,30 @@ int testInheritance() {
 
     setpriority(0);
 
+    // make low priority child
     pid_block = fork();
+    
+    // if it's the parent make the high priority child
     if (pid_block) { 
         pid_proc = fork();
     }
 
-    if (pid_block == 0) { //blocking process
+    if (pid_block == 0) { //low priority child
         setpriority(PRIORITY_LOW);
      
+	for (j=0;j<50000;j++) {
+	    for(k=0;k<10000;k++) {
+		asm("nop");
+            }
+        }
+
         printf(1, "The high priority child donated its priority to me\n");
-        unblock();    
         exit(0);
     }
 
-    if (pid_proc == 0) { //high priority process
+    if (pid_proc == 0) { //high priority child
         setpriority(20);
-        prinf(1, "I am the high priority child about to be proc blocked\n");
+        printf(1, "I am the high priority child about to be proc blocked\n");
         setblocked(1);
         setprocblocked(pid_block);
 
