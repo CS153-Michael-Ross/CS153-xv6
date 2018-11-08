@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
 	int waitPid(void);
 	int PScheduler(void);
         int testInheritance(void);
+	int testWaitTime(void);
 
   printf(1, "\n This program tests the correctness of your lab#1\n");
   
@@ -20,6 +21,8 @@ int main(int argc, char *argv[])
 	PScheduler();
   else if (atoi(argv[1]) == 4)
         testInheritance();
+  else if (atoi(argv[1]) == 5)
+	testWaitTime();
   else 
    printf(1, "\ntype \"lab1 1\" to test exit and wait, \"lab1 2\" to test waitpid and \"lab1 3\" to test the priority scheduler \n");
   
@@ -201,5 +204,46 @@ int testInheritance() {
     waitpid(pid_proc, 0, 0);
 
     return 0;
+}
+
+int testWaitTime(void){
+  int pid, ret_pid, exit_status;
+  int i,j,k;
+  
+    printf(1, "\n  This is a test to track the turnaround time and wait time of each process.\n");
+    printf(1, "\n  Each child process should exit and display their ID, wait time and turnaround time.\n");
+   
+    setpriority(0);
+    for (i = 0; i <  3; i++) {
+	pid = fork();
+	if (pid > 0 ) {
+		continue;}
+	else if ( pid == 0) {
+//		printf(1, "\n Hello! this is child# %d and I will change my priority to %d \n",getpid(),60-20*i);
+		setpriority(60-20*i);	
+		for (j=0;j<50000;j++) {
+			for(k=0;k<10000;k++) {
+				asm("nop"); }}
+		printf(1, "\n child# %d with priority %d has finished! \n",getpid(),60-20*i);
+		procTime();		
+		exit(0);
+        }
+        else {
+			printf(2," \n Error \n");
+			exit(-1);
+        }
+	}
+
+	if(pid > 0) {
+		for (i = 0; i <  3; i++) {
+			ret_pid = wait(&exit_status);
+                        // This print was commented out, but because ret_pid
+                        // was not used, the file would not compile
+			printf(1,"\n This is the parent: child with PID# %d has finished with status %d \n",ret_pid,exit_status);
+			}
+                     printf(1,"\n If all child processes display their turnaround time and wait time then the test is a success. \n");
+}
+			
+	return 0;
 }
 
