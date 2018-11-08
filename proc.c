@@ -220,7 +220,7 @@ fork(void)
   np->state = RUNNABLE;
   
   // Set priority to parent's priority
-  np->priority = priority;
+  np->priority = curproc->priority;
   
   // Set start time and initialize wait time
   np->startTime = ticks;
