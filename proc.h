@@ -53,6 +53,8 @@ struct proc {
   int priority;                // Priority range [0, 63] lowest # is highest
   int blocked;                 // Flag for a blocked process
   struct proc * procBlocked;   // Reference to the blocking process
+  uint startTime;              // Time (from ticks global) process began
+  uint waitTime;               // Time process spent waiting
 };
 
 // Process memory is laid out contiguously, low addresses first:

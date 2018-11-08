@@ -218,6 +218,13 @@ fork(void)
   acquire(&ptable.lock);
 
   np->state = RUNNABLE;
+  
+  // Set priority to parent's priority
+  np->priority = priority;
+  
+  // Set start time and initialize wait time
+  np->startTime = ticks;
+  np->waitTime = 0;
 
   release(&ptable.lock);
 
