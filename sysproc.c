@@ -122,3 +122,10 @@ sys_setprocblocked(int pid)
   argint(0, &pid);
   return setprocblocked(pid);
 }
+
+
+int
+sys_procTime(void)
+{
+  return procTime();
+}

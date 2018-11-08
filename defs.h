@@ -124,6 +124,7 @@ void            yield(void);
 int             setpriority(int);
 int             setblocked(int);
 int             setprocblocked(int);
+int             procTime(void);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

@@ -28,6 +28,7 @@ int uptime(void);
 int setpriority(int);
 int setblocked(int);
 int setprocblocked(int);
+int procTime(void);
 
 // ulib.c
 int stat(const char*, struct stat*);

@@ -24,3 +24,4 @@
 #define SYS_setpriority     23
 #define SYS_setblocked      24
 #define SYS_setprocblocked  25
+#define SYS_procTime        26

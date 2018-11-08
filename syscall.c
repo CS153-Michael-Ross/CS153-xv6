@@ -107,6 +107,7 @@ extern int sys_uptime(void);
 extern int sys_setpriority(int);
 extern int sys_setblocked(int);
 extern int sys_setprocblocked(int);
+extern int sys_procTime(void);
 
 static int (*syscalls[])() = {
 [SYS_fork]    sys_fork,
@@ -134,6 +135,7 @@ static int (*syscalls[])() = {
 [SYS_setpriority] sys_setpriority,
 [SYS_setblocked] sys_setblocked,
 [SYS_setprocblocked] sys_setprocblocked,
+[SYS_procTime] sys_procTime,
 };
 
 void

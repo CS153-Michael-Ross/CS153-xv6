@@ -670,3 +670,18 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+int procTime(void) {
+  uint turnTime;
+
+  acquire(&ptable.lock);
+
+  turnTime = ticks - myproc()->startTime;
+  
+  cprintf("Turnaround time:\t%u\nWait time:\t%u", turnTime,
+    myproc()->waitTime);
+
+  release(&ptable.lock);
+
+  return 0;
+}
