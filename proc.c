@@ -484,7 +484,9 @@ struct proc * getHighestProc() {
       high = p;
     } else if (p->priority > PRIORITY_HIGH) {   // Lower priority value is
       p->priority--;                            // equivalent to higher
-    }                                           // priority.
+                                                // priority.
+      p->waitTime++;
+    }                                           
   }
 
   if (high->priority < PRIORITY_LOW) {  // Higher priority value is
